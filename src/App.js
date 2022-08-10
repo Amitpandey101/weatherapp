@@ -29,7 +29,7 @@ const onchangeHandler=(e)=>{
 
   const handleFetch = () => {
   
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=10a8ad146b098afcd471a622eca52984`).then((response) => response.json()).then((data) => setPlaceInfo({
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=${process.env.REACT_API}`).then((response) => response.json()).then((data) => setPlaceInfo({
       name: data.name ,
       country: data.sys.country ,
       current_temp: data.main.temp,

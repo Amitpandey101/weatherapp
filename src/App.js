@@ -5,30 +5,30 @@ import Cloudy from "./assets/cloudy.jpg";
 import Overcast from "./assets/overcast.jpg";
 import Rainy from "./assets/rainy.jpg";
 import Snow from "./assets/snow.jpg";
+import Navbar from "./Navbar/Navbar";
 
 
 function App() {
   const [place, setPlace] = useState("")
   const [placeInfo, setPlaceInfo] = useState([])
-  const [data, setData] = useState([]);
+
+  const [show, setShow] =useState(false)
  
  
 
   useEffect(() => {
     handleFetch()
+
     
   }, [])
-const onchangeHandler=(e)=>{
-  e.preventDefault()
-  setPlace(e.target.value)
-  const newData=place;
-  setData({...data,newData})
-  console.log(data)
+
+const handlerecent=()=>{
+  // console.log(localStorage.getItem("city"))
+localStorage.setItem("city",placeInfo.name);
+localStorage.getItem("city") === "undefined" ?  setShow(false) :   setShow(true)
 
 }
-
   const handleFetch = () => {
-  
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=10a8ad146b098afcd471a622eca52984`).then((response) => response.json()).then((data) => setPlaceInfo({
       name: data.name ,
       country: data.sys.country ,
@@ -40,8 +40,8 @@ const onchangeHandler=(e)=>{
 console.log(err)
   
     })
-
-
+  
+handlerecent()
 
     setPlace("")
 
@@ -49,7 +49,10 @@ console.log(err)
   }
 
   return (
+    <>
+    <Navbar></Navbar>
     <div
+
       className="app"
       style={
         placeInfo.condition?.toLowerCase() === "clear" ||
@@ -66,8 +69,7 @@ console.log(err)
     >
       <div className="search-input">
 
-
-        <input class="form-control me-2" type="search" value={place} onChange={onchangeHandler} placeholder="Search" aria-label="Search" />
+        <input class="form-control me-2" type="search" value={place} onChange={(e)=>setPlace(e.target.value)} placeholder="Type city name here" aria-label="Search" />
         <button class="btn btn-outline-success"style={{border:"2 px solid blue",backgroundColor:"black"}} onClick={handleFetch} type="submit"><strong>Search</strong></button>
     
       </div>
@@ -82,12 +84,23 @@ console.log(err)
         </div>
         <h2>
 
-          {placeInfo.name || "Dhaka"}, {placeInfo.country || "BAN"}
+          {placeInfo.name || "Haldwani"}, {placeInfo.country || "IN"}
+
+       
+          <ul class="list-group">
+          <li class="list-group-item">Most Recent</li>
+          {show && <li class="list-group-item list-group-item-info">{localStorage.getItem("city")}</li>}
+  
+    
+
+  
+
+</ul>
         </h2>
       </div>
     </div>
 
-
+    </>
 
 
 

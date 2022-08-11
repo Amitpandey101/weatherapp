@@ -11,6 +11,7 @@
   overflow: hidden;
   transition-duration: 1s ;
   
+  
 }
 .search-input{
   display: flex;
@@ -51,4 +52,12 @@
   position: absolute;
   top: 8vh;
   right: 5vh;
+}
+.list-group{
+  position: absolute;
+  left: 53vw;
+  top: -7vw;
+  font-size: 20px;
+  width: 20vw;
+
 }

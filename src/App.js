@@ -29,7 +29,7 @@ localStorage.getItem("city") === "undefined" ?  setShow(false) :   setShow(true)
 
 }
   const handleFetch = () => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid=10a8ad146b098afcd471a622eca52984`).then((response) => response.json()).then((data) => setPlaceInfo({
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${place}&units=metric&appid={process.env.API_ID}`).then((response) => response.json()).then((data) => setPlaceInfo({
       name: data.name ,
       country: data.sys.country ,
       current_temp: data.main.temp,
